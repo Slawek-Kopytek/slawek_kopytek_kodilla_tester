@@ -34,7 +34,7 @@ public class Notebook {
         } else if (this.year>2020 && this.price>=1500){
             System.out.println("Don't buy it.");
         } else if (this.year<2020 && this.price>700){
-            System.out.println("Check the other notebook if you want to have good performance!.");
+            System.out.println("Check the other notebook if you want to have good performance!");
         }
         else {
             System.out.println("Not too much, but works");
