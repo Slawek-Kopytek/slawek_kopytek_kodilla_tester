@@ -24,10 +24,22 @@ public class Grades {
 
     public double receiveAverageGrade(){
         double total = 0;
-        for (int i = 0; i < grades.length; i++) {
+        for(int i = 0; i < grades.length; i++) {
             total += grades[i];
         }
-        double average = total / size;
-        return average;
+        return total / size;
+    }
+
+    public  static void main(String[] args){
+        Grades grades = new Grades();
+        grades.add(5);
+        grades.add(4);
+        grades.add(1);
+        grades.add(5);
+        grades.add(3);
+        grades.add(5);
+
+        System.out.println("Last added grade: " + grades.checkLastAddedGrade());
+        System.out.println("Average grades are: " + grades.receiveAverageGrade());
     }
 }
