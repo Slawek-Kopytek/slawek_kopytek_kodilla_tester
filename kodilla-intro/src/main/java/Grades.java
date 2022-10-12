@@ -30,7 +30,7 @@ public class Grades {
         return total / size;
     }
 
-    public  static void main(String[] args){
+    public static void main(String[] args){
         Grades grades = new Grades();
         grades.add(5);
         grades.add(4);
