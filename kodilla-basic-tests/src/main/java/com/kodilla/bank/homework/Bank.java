@@ -10,13 +10,12 @@ public class Bank {
         this.cashMachines = new CashMachine[0];
     }
 
-    public int add(CashMachine cashMachine) {
+    public void add(CashMachine cashMachine) {
         this.size++;
         CashMachine[] newTab = new CashMachine[this.size];
         System.arraycopy(cashMachines, 0, newTab, 0, cashMachines.length);
-        newTab[this.size -1 ] = cashMachine;
+        newTab[this.size - 1] = cashMachine;;
         this.cashMachines = newTab;
-        return this.size-1;
     }
 
     public int getNumberOfCashMachines() {

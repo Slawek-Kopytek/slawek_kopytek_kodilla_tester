@@ -15,8 +15,8 @@ public class BankTestSuite {
         bank.add(machineOne);
         bank.add(machineTwo);
         bank.add(machineThree);
-        bank.getNumberOfCashMachines();
-        assertEquals(3, bank.add(machineOne),0.01);
+
+        assertEquals(3, bank.getNumberOfCashMachines(),0.01);
     }
     @Test
     public void shouldCalculateSumBalance() {
@@ -40,12 +40,12 @@ public class BankTestSuite {
         CashMachine machineTwo = new CashMachine();
         bank.add(machineOne);
         bank.add(machineTwo);
-        machineOne.add(600);
-        machineOne.add(200);
-        machineTwo.add(1300);
+        machineOne.add(100);
+        machineOne.add(300);
+        machineTwo.add(100);
         machineTwo.add(-200);
 
-        assertEquals(700, bank.sumAverageDeposits(), 0.01);
+        assertEquals(150, bank.sumAverageDeposits(), 0.01);
     }
     @Test
     public void shouldCalculateSumAveragePayouts() {
