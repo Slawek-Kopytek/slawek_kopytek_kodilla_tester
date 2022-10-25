@@ -7,67 +7,87 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BankTestSuite {
 
     @Test
-    public void shouldWorkWhenBankHasNoCashMachine() {
-
+    public void shouldAddThreeCashMachines() {
         Bank bank = new Bank();
-
-        assertEquals(0, bank.getTotalBalance());
-        assertEquals(0, bank.getTotalNumberOfDeposits());
-        assertEquals(0, bank.getTotalNumberOfPayouts());
-        assertEquals(0, bank.getTotalAverageOfDeposits());
-        assertEquals(0, bank.getTotalAverageOfPayouts());
+        CashMachine machineOne = new CashMachine();
+        CashMachine machineTwo = new CashMachine();
+        CashMachine machineThree = new CashMachine();
+        bank.add(machineOne);
+        bank.add(machineTwo);
+        bank.add(machineThree);
+        bank.getNumberOfCashMachines();
+        assertEquals(3, bank.add(machineOne),0.01);
     }
-
     @Test
-    public void shouldWorkWhenBankHasOneEmptyCashMachine() {
-
-        CashMachine a1 = new CashMachine();
-        CashMachine a2 = new CashMachine();
-        CashMachine a3 = new CashMachine();
-
-        a1.add(300);
-        a1.add(-400);
-        a2.add(1500);
-        a2.add(-200);
-
+    public void shouldCalculateSumBalance() {
         Bank bank = new Bank();
+        CashMachine machineOne = new CashMachine();
+        CashMachine machineTwo = new CashMachine();
+        bank.add(machineOne);
+        bank.add(machineTwo);
 
-        assertEquals(200, bank.getTotalBalance());
-        assertEquals(2, bank.getTotalNumberOfDeposits());
-        assertEquals(2, bank.getTotalNumberOfPayouts());
-        assertEquals(800, bank.getTotalAverageOfDeposits());
-        assertEquals(300, bank.getTotalAverageOfPayouts());
+        machineOne.add(500);
+        machineOne.add(-300);
+        machineTwo.add(1000);
+        machineTwo.add(-300);
+
+        assertEquals(900, bank.sumBalance(), 0.01);
     }
-
     @Test
-    public void shouldWorkWhenBankHasOneCashMachineWithOneDeal() {
-
-        CashMachine a1 = new CashMachine();
-
-        a1.add(3000);
-
+    public void shouldCalculateSumAverageDeposit() {
         Bank bank = new Bank();
+        CashMachine machineOne = new CashMachine();
+        CashMachine machineTwo = new CashMachine();
+        bank.add(machineOne);
+        bank.add(machineTwo);
+        machineOne.add(600);
+        machineOne.add(200);
+        machineTwo.add(1300);
+        machineTwo.add(-200);
 
-        assertEquals(3000, bank.getTotalBalance());
-        assertEquals(1, bank.getTotalNumberOfDeposits());
-        assertEquals(0, bank.getTotalNumberOfPayouts());
-        assertEquals(3000, bank.getTotalAverageOfDeposits());
-        assertEquals(0, bank.getTotalAverageOfPayouts());
+        assertEquals(700, bank.sumAverageDeposits(), 0.01);
     }
-
     @Test
-    public void shouldWorkWhenBankHasNoDeals() {
-
-        CashMachine a1 = new CashMachine();
-        CashMachine a2 = new CashMachine();
-        CashMachine a3 = new CashMachine();
-
+    public void shouldCalculateSumAveragePayouts() {
         Bank bank = new Bank();
+        CashMachine machineOne = new CashMachine();
+        CashMachine machineTwo = new CashMachine();
+        bank.add(machineOne);
+        bank.add(machineTwo);
+        machineOne.add(50);
+        machineOne.add(-200);
+        machineTwo.add(-800);
+        machineTwo.add(1600);
 
-        assertEquals(0, bank.getTotalBalance());
-        assertEquals(0, bank.getTotalNumberOfDeposits());
-        assertEquals(0, bank.getTotalNumberOfPayouts());
-        assertEquals(0, bank.getTotalAverageOfDeposits());
-        assertEquals(0, bank.getTotalAverageOfPayouts());
+        assertEquals(-500, bank.sumAveragePayouts(), 0.01);
+    }
+    @Test
+    public void shouldCalculateSumNumberOfDeposits() {
+        Bank bank = new Bank();
+        CashMachine machineOne = new CashMachine();
+        CashMachine machineTwo = new CashMachine();
+        bank.add(machineOne);
+        bank.add(machineTwo);
+        machineOne.add(800);
+        machineOne.add(-200);
+        machineTwo.add(500);
+        machineTwo.add(-800);
+
+        assertEquals(2, bank.sumNumberDeposits(), 0.01);
+    }
+    @Test
+    public void shouldCalculateSumNumberOfPayouts() {
+        Bank bank = new Bank();
+        CashMachine machineOne = new CashMachine();
+        CashMachine machineTwo = new CashMachine();
+        bank.add(machineOne);
+        bank.add(machineTwo);
+        machineOne.add(-100);
+        machineOne.add(-400);
+        machineOne.add(200);
+        machineTwo.add(-20);
+        machineTwo.add(-400);
+
+        assertEquals(4, bank.sumNumberPayouts(), 0.01);
     }
 }

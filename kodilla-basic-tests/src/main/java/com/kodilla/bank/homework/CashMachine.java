@@ -32,42 +32,54 @@ public class CashMachine {
         return sum;
     }
 
-    public int getSumOfPayouts() {
-        int sumOfPayouts = 0;
+    public int getAveragePayouts() {
+
+        if (this.deals.length == 0) {
+            return 0;
+        }
+        int sum = 0;
         for (int i = 0; i < this.deals.length; i++) {
             if (deals[i] < 0) {
-                sumOfPayouts += deals[i];
+                sum += this.deals[i];
             }
         }
-        return -sumOfPayouts;
+        return sum / getNumberPayouts();
     }
+    public int getAverageDeposits() {
 
-    public int getSumOfDeposits() {
-        int sumOfDeposits = 0;
+        if (this.deals.length == 0) {
+            return 0;
+        }
+        int sum = 0;
         for (int i = 0; i < this.deals.length; i++) {
             if (deals[i] > 0) {
-                sumOfDeposits += deals[i];
+                sum += this.deals[i];
             }
         }
-        return sumOfDeposits;
+        return sum / getNumberDeposits();
     }
-
-    public int getNumberOfDeposits() {
-        int numberOfDeposits = 0;
-        for (int i = 0; i < this.deals.length; i++) {
-            if (deals[i] > 0)
-                numberOfDeposits++;
+    public int getNumberDeposits() {
+        if (this.size == 0) {
+            return 0;
         }
-        return numberOfDeposits;
+        int number = 0;
+        for (int i = 0; i < this.size; i++) {
+            if (deals[i] > 0) {
+                number++;
+            }
+        }
+        return number;
     }
-
-
-    public int getNumberOfPayouts() {
-        int numberOfPayouts = 0;
-        for (int i = 0; i < this.deals.length; i++) {
-            if (deals[i] < 0)
-                numberOfPayouts++;
+    public int getNumberPayouts() {
+        if (this.size == 0) {
+            return 0;
         }
-        return numberOfPayouts;
+        int number = 0;
+        for (int i = 0; i < this.size; i++) {
+            if (deals[i] < 0) {
+                number++;
+            }
+        }
+        return number;
     }
 }

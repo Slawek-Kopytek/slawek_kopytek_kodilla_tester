@@ -10,54 +10,66 @@ public class Bank {
         this.cashMachines = new CashMachine[0];
     }
 
-    public int getTotalBalance() {
-        int totalBalance = 0;
-        for (int i = 0; i < cashMachines.length; i++) {
-            CashMachine cashMachine = cashMachines[i];
-            totalBalance += cashMachine.getBalance();
-        }
-        return totalBalance;
+    public int add(CashMachine cashMachine) {
+        this.size++;
+        CashMachine[] newTab = new CashMachine[this.size];
+        System.arraycopy(cashMachines, 0, newTab, 0, cashMachines.length);
+        newTab[this.size -1 ] = cashMachine;
+        this.cashMachines = newTab;
+        return this.size-1;
     }
 
-    public int getTotalNumberOfPayouts() {
-        int totalNumberOfDeals = 0;
-        for (int i = 0; i < cashMachines.length; i++) {
-            totalNumberOfDeals += cashMachines[i].getNumberOfPayouts();
-        }
-        return totalNumberOfDeals;
+    public int getNumberOfCashMachines() {
+        return size;
     }
-
-    public int getTotalNumberOfDeposits() {
-        int totalNumberOfDeposits = 0;
-        for (int i = 0; i < cashMachines.length; i++) {
-            totalNumberOfDeposits += cashMachines[i].getNumberOfDeposits();
-        }
-        return totalNumberOfDeposits;
-    }
-
-    public double getTotalAverageOfDeposits() {
-        int depositsCount = getTotalNumberOfDeposits();
-        if (depositsCount == 0) {
+    public double sumBalance() {
+        if (size ==0){
             return 0;
         }
-
-        double totalSumOfDeposits = 0;
-        for (int i = 0; i < cashMachines.length; i++) {
-            totalSumOfDeposits += cashMachines[i].getSumOfDeposits();
+        double sum = 0;
+        for(int i = 0; i < size; i++){
+            sum+=cashMachines[i].getBalance();
         }
-        return totalSumOfDeposits / depositsCount;
+        return sum;
     }
-
-    public double getTotalAverageOfPayouts() {
-        int dealsCount = getTotalNumberOfPayouts();
-        if (dealsCount == 0) {
+    public double sumAverageDeposits(){
+        if (size ==0){
             return 0;
         }
-
-        double totalSumInMinus = 0;
-        for (int i = 0; i < cashMachines.length; i++) {
-            totalSumInMinus += cashMachines[i].getSumOfPayouts();
+        double sum = 0;
+        for(int i = 0; i < size; i++){
+            sum+=cashMachines[i].getAverageDeposits();
         }
-        return totalSumInMinus / dealsCount;
+        return sum/getNumberOfCashMachines();
+    }
+    public double sumAveragePayouts(){
+        if (size ==0){
+            return 0;
+        }
+        double sum = 0;
+        for(int i = 0; i < size; i++){
+            sum+=cashMachines[i].getAveragePayouts();
+        }
+        return sum/getNumberOfCashMachines();
+    }
+    public int sumNumberDeposits(){
+        if (size ==0){
+            return 0;
+        }
+        int sum = 0;
+        for(int i = 0; i < size; i++){
+            sum+=cashMachines[i].getNumberDeposits();
+        }
+        return sum;
+    }
+    public int sumNumberPayouts(){
+        if (size ==0){
+            return 0;
+        }
+        int sum = 0;
+        for(int i = 0; i < size; i++){
+            sum+=cashMachines[i].getNumberPayouts();
+        }
+        return sum;
     }
 }
