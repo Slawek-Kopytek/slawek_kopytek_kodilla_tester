@@ -5,10 +5,11 @@ public class Ford implements Car{
     private int accelerate;
     private int brake;
 
-    public Ford(int speed, int accelerate, int brake){
+
+    public Ford(int speed){
         this.speed = speed;
-        this.accelerate = accelerate;
-        this.brake = brake;
+        this.accelerate = 40;
+        this.brake = 20;
     }
 
     @Override
@@ -18,7 +19,7 @@ public class Ford implements Car{
 
     @Override
     public void increaseSpeed() {
-        speed += accelerate;
+         speed += accelerate;
     }
 
     @Override

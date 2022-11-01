@@ -5,10 +5,10 @@ public class Opel implements Car{
     private int accelerate;
     private int brake;
 
-    public Opel(int speed, int accelerate, int brake){
+    public Opel(int speed){
         this.speed = speed;
-        this.accelerate = accelerate;
-        this.brake = brake;
+        this.accelerate = 30;
+        this.brake = 15;
     }
 
     @Override
