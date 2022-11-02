@@ -25,4 +25,5 @@ public class Opel implements Car{
     public void decreaseSpeed() {
         speed -= brake;
     }
+
 }
