@@ -32,8 +32,6 @@ class FlightFinderTest {
         FlightFinder flightFinder = new FlightFinder();
         //given
         flightFinder.findFlightsTo("Warszawa");
-        flightFinder.findFlightsTo("Gdansk");
-        flightFinder.findFlightsTo("Barcelona");
         //when
         List<Flight> result = flightFinder.findFlightsTo("Warszawa");
         //then

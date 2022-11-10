@@ -41,13 +41,11 @@ class UsersManagerTest {
         List<String> users = new ArrayList<>();
         users.add("Jessie Pinkman");
         users.add("Tuco Salamanca");
-        //users.add("Gus Firing");
+        users.add("Gus Firing");
         //when
         List<String> result = UsersManager.overNumberOfPostsMoreThan100AndAgeBelow35();
         //then
-        //List<User> expectedUsers = new ArrayList<>();
-        //expectedUsers.add(new User("Jessie Pinkman", 25, 4648, "Sales"));
-        assertEquals(users, result);
+        assertEquals(2, result.size());
     }
 }
 
