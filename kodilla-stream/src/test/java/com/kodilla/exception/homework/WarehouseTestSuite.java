@@ -14,15 +14,16 @@ class WarehouseTestSuite {
         Warehouse warehouse = new Warehouse();
         warehouse.addOrder(new Order("1"));
         //when
-        Order result = new Order("1");
+        Order result = warehouse.getOrder("1");
         //then
-        assertEquals(result.getNumber(), Warehouse.getOrder("1").getNumber());
+        Order expectedOrder = new Order("1");
+        assertEquals(result.getNumber(), expectedOrder.getNumber());
     }
 
     @Test
     public void testIsOrderInWarehouse_withException(){
-        //Warehouse warehouse = new Warehouse();
+        Warehouse warehouse = new Warehouse();
         //then
-        assertThrows(OrderDoesntExistException.class, () -> Warehouse.getOrder("2"));
+        assertThrows(OrderDoesntExistException.class, () -> warehouse.getOrder("2"));
     }
 }

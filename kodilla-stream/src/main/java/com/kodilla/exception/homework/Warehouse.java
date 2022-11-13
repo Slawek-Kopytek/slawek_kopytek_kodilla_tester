@@ -5,14 +5,14 @@ import java.util.List;
 
 
 public class Warehouse {
-    private static List<Order> orders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
     public void addOrder(Order order){
         orders.add(order);
         System.out.println(order + " order added");
     }
 
-    public static Order getOrder(String number) throws OrderDoesntExistException{
+    public Order getOrder(String number) throws OrderDoesntExistException{
         return orders
                 .stream()
                 .filter(n -> n.getNumber().equals(number))
