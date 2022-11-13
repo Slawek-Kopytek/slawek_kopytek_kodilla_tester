@@ -11,8 +11,4 @@ public class Order {
         return number;
     }
 
-    @Override
-    public String toString() {
-        return "Order: " + number;
-    }
 }
