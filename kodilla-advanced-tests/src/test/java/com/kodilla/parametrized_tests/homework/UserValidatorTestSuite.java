@@ -13,12 +13,6 @@ class UserValidatorTestSuite {
     private UserValidator validator = new UserValidator();
 
     @ParameterizedTest
-    @EmptySource //jak robie z nullem to wyskakuje błąd
-    public void shouldReturnFalseIfStringIsEmpty(String username){
-        assertFalse(validator.validateUsername(username));
-    }
-
-    @ParameterizedTest
     @ValueSource (strings = {"q", "we", "rt", "y1"})
     public void shouldReturnFalseIfStringIsLessThanThreeChars(String username){
         assertFalse(validator.validateUsername(username));
@@ -37,26 +31,26 @@ class UserValidatorTestSuite {
     }
 
     @ParameterizedTest
-    @NullSource
-    public void shouldReturnFalseIfEmailIsEmpty(String email){
-        assertFalse(validator.validateEmail(email));
+    @ValueSource (strings = {"j.nowak@gmail.de", "we10@12345.pl"})
+    public void shouldReturnTrueIfEmailHasMoreThanOneAndLessThanSixChars(String mail){
+        assertTrue(validator.validateEmail(mail));
     }
 
     @ParameterizedTest
     @ValueSource (strings = {"!qwerty@gmail.com", "wpmail@tle(n.pl", "o2@wp.d*e"})
-    public void shouldReturnFalseIfEmailHasSpecialSigns(String username){
-        assertFalse(validator.validateUsername(username));
+    public void shouldReturnFalseIfEmailHasSpecialSigns(String mail){
+        assertFalse(validator.validateEmail(mail));
     }
 
     @ParameterizedTest
     @ValueSource (strings = {"qwerty@gmailcom", "jan.kowalski@gmailcom"})
-    public void shouldReturnFalseIfEmailIsWithoutDomainDot(String username){
-        assertFalse(validator.validateUsername(username));
+    public void shouldReturnFalseIfEmailIsWithoutDomainDot(String mail){
+        assertFalse(validator.validateEmail(mail));
     }
 
     @ParameterizedTest
-    @ValueSource (strings = {"qwerty@gmailcom.com", "jan.kowalski@gmail."})
-    public void shouldReturnFalseIfEmailHasMoreThanSixDomainCharsAndEmptyDirectional(String username){
-        assertFalse(validator.validateUsername(username));
+    @ValueSource (strings = {"qwerty@gmail.comcomc", "jan.kowalski@gmail."})
+    public void shouldReturnFalseIfEmailHasMoreThanSixDomainCharsAndEmptyDirectional(String mail){
+        assertFalse(validator.validateEmail(mail));
     }
 }
