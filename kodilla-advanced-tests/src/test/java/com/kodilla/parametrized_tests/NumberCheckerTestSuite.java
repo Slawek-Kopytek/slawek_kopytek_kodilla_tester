@@ -1,4 +1,4 @@
-package parametrized_tests;
+package com.kodilla.parametrized_tests;
 
 import com.kodilla.parametrized_tests.NumberChecker;
 import org.junit.jupiter.params.ParameterizedTest;
