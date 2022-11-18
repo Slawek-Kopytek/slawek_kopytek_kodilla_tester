@@ -24,7 +24,7 @@ public class GamblingMachine {
         }
     }
 
-    public boolean isAnyNumberOutOfDeclaredScope(Set<Integer> numbers) {
+    private boolean isAnyNumberOutOfDeclaredScope(Set<Integer> numbers) {
         return numbers.stream()
                 .anyMatch(number -> number < 1 || number > 49);
     }

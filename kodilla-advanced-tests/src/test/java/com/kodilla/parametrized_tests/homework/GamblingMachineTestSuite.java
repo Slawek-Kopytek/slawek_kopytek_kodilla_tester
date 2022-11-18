@@ -38,7 +38,7 @@ class GamblingMachineTestSuite {
                 .collect(Collectors.toSet());
         int result = gamblingMachine.howManyWins(correctNumbers);
         System.out.println(result);
-        assertTrue(result >= 0 && result <= 50);
+        assertTrue(result >= 0 && result <= 6);
     }
 
 }
