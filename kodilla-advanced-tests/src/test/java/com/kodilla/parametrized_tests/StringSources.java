@@ -5,7 +5,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import java.util.stream.Stream;
 
 public class StringSources {
-    static Stream <Arguments> provideStringsForTestingLength() {
+    private static Stream <Arguments> provideStringsForTestingLength() {
         return Stream.of(
                 Arguments.of("test", 4),
                 Arguments.of("OtHEr ", 5),
