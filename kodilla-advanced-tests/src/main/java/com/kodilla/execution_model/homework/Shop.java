@@ -9,17 +9,9 @@ import java.util.stream.Collectors;
 public class Shop {
     private  Set<Order> orders = new HashSet<>();
 
-    //0
+    //1
     public void addOrder(Order order){
         this.orders.add(order);
-    }
-
-    //1
-    public Set<Order> getOrder(Order order) {
-        return orders
-                .stream()
-                .filter(n -> Boolean.parseBoolean(n.getLogin()))
-                .collect(Collectors.toSet());
     }
 
     //2

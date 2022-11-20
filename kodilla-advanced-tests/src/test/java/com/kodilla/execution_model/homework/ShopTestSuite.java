@@ -17,11 +17,11 @@ class ShopTestSuite {
     Order bed = new Order(349.99, LocalDate.of(2022,12,30), "Bartek");
 
     @Test
-    public void shouldGetOrderFromShop(){
+    public void shouldCalculateOrdersAddedToShop(){
         //when
-        Set<Order> result = shop.getOrder(chairs);
+        int result = shop.getSizeOfOrders();
         //then
-        assertEquals("Anna", chairs.getLogin());
+        assertEquals(5, result);
     }
 
     @Test
@@ -40,13 +40,6 @@ class ShopTestSuite {
         assertEquals(3, result.size());
     }
 
-    @Test
-    public void shouldAddOrderToShop(){
-        //when
-        int result = shop.getSizeOfOrders();
-        //then
-        assertEquals(5, result);
-    }
 
     @Test
     public void shouldReturnWholeSumOfOrders(){
