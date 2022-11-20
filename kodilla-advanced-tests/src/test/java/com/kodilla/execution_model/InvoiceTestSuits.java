@@ -1,24 +1,19 @@
 package com.kodilla.execution_model;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class InvoiceTestSuits {
     Invoice invoice = new Invoice();
+    Item carRent = new Item ("FV12", 1500);
+    Item flatRent = new Item("Fv20", 2000);
+    Item sportCard = new Item("FV1", 50);
+    Item mediaSubscriptions = new Item("FV7", 150);
 
     @Test
     public void shouldAddItemToInvoice(){
-        //given
-        Item carRent = new Item ("FV12", 1500);
-        Item flatRent = new Item("Fv20", 2000);
-        Item sportCard = new Item("FV1", 50);
-        Item mediaSubscriptions = new Item("FV7", 150);
-        invoice.addItem(carRent);
-        invoice.addItem(flatRent);
-        invoice.addItem(sportCard);
-        invoice.addItem(mediaSubscriptions);
         //when
         int numberOfItems = invoice.getSize();
         //then
@@ -27,15 +22,6 @@ class InvoiceTestSuits {
 
     @Test
     public void shouldGetExistingItem(){
-        //given
-        Item carRent = new Item ("FV12", 1500);
-        Item flatRent = new Item("Fv20", 2000);
-        Item sportCard = new Item("FV1", 50);
-        Item mediaSubscriptions = new Item("FV7", 150);
-        invoice.addItem(carRent);
-        invoice.addItem(flatRent);
-        invoice.addItem(sportCard);
-        invoice.addItem(mediaSubscriptions);
         //when
         Item result = invoice.getItem(3);
         //then
@@ -45,15 +31,6 @@ class InvoiceTestSuits {
 
     @Test
     public void shouldReturnNullWhenPassingNegativeIndex(){
-        //given
-        Item carRent = new Item ("FV12", 1500);
-        Item flatRent = new Item("Fv20", 2000);
-        Item sportCard = new Item("FV1", 50);
-        Item mediaSubscriptions = new Item("FV7", 150);
-        invoice.addItem(carRent);
-        invoice.addItem(flatRent);
-        invoice.addItem(sportCard);
-        invoice.addItem(mediaSubscriptions);
         //when
         Item result = invoice.getItem(-1);
         //then
@@ -62,15 +39,6 @@ class InvoiceTestSuits {
 
     @Test
     public void shouldReturnNullWhenPassingOutOfRangeIndex() {
-        //given
-        Item carRent = new Item("FV12", 1500);
-        Item flatRent = new Item("Fv20", 2000);
-        Item sportCard = new Item("FV1", 50);
-        Item mediaSubscriptions = new Item("FV7", 150);
-        invoice.addItem(carRent);
-        invoice.addItem(flatRent);
-        invoice.addItem(sportCard);
-        invoice.addItem(mediaSubscriptions);
         //when
         Item result = invoice.getItem(5);
         //then
@@ -80,19 +48,34 @@ class InvoiceTestSuits {
     @Test
     public void shouldClearInvoice(){
         //given
-        Item carRent = new Item("FV12", 1500);
-        Item flatRent = new Item("Fv20", 2000);
-        Item sportCard = new Item("FV1", 50);
-        Item mediaSubscriptions = new Item("FV7", 150);
-        invoice.addItem(carRent);
-        invoice.addItem(flatRent);
-        invoice.addItem(sportCard);
-        invoice.addItem(mediaSubscriptions);
         int invoiceSizeBeforeClear = invoice.getSize();
         //when
         invoice.clear();
         //then
         assertEquals(0, invoice.getSize());
         assertEquals(4, invoiceSizeBeforeClear);
+    }
+
+    @BeforeEach
+    public void initializeInvoice(){
+        invoice.addItem(carRent);
+        invoice.addItem(flatRent);
+        invoice.addItem(sportCard);
+        invoice.addItem(mediaSubscriptions);
+    }
+
+    @AfterEach
+    public void resetValue(){
+        System.out.println("Resetting values...");
+    }
+
+    @BeforeAll
+    public static void displayIntroMessage(){
+        System.out.println("Starting testing");
+    }
+
+    @AfterAll
+    public static void displayGoodByeMessage(){
+        System.out.println("Finishing testing");
     }
 }
