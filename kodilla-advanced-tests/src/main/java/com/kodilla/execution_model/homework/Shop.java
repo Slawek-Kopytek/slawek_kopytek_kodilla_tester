@@ -2,19 +2,16 @@ package com.kodilla.execution_model.homework;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Shop {
     private  Set<Order> orders = new HashSet<>();
 
-    //1
     public void addOrder(Order order){
         this.orders.add(order);
     }
 
-    //2
     public Set<Order> getOrdersByPeriod(LocalDate dateFrom, LocalDate dateTo){
         return orders
                 .stream()
@@ -23,7 +20,6 @@ public class Shop {
                 .collect(Collectors.toSet());
     }
 
-    //3
     public Set<Order> getOrdersByMinAndMaxValue(double min, double max){
         return orders
                 .stream()
@@ -32,16 +28,14 @@ public class Shop {
                 .collect(Collectors.toSet());
     }
 
-    //4
     public int getSizeOfOrders(){
         return this.orders.size();
     }
 
-    //5
     public double sumOfOrders(){
-        double sum = 0;
-        for (Order order : this.orders)
-            sum += order.getValue();
-        return sum;
+        return orders
+                .stream()
+                .mapToDouble(Order::getValue)
+                .sum();
     };
 }

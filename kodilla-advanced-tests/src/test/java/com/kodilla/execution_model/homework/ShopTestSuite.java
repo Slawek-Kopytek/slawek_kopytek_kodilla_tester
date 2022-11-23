@@ -17,14 +17,6 @@ class ShopTestSuite {
     Order bed = new Order(349.99, LocalDate.of(2022,12,30), "Bartek");
 
     @Test
-    public void shouldCalculateOrdersAddedToShop(){
-        //when
-        int result = shop.getSizeOfOrders();
-        //then
-        assertEquals(5, result);
-    }
-
-    @Test
     public void shouldReturnAllOrdersByPeriod(){
         //when
         Set<Order> result = shop.getOrdersByPeriod(LocalDate.of(2022,11,25), LocalDate.of(2022,11,20));
@@ -40,6 +32,13 @@ class ShopTestSuite {
         assertEquals(3, result.size());
     }
 
+    @Test
+    public void shouldCalculateOrdersAddedToShop(){
+        //when
+        int result = shop.getSizeOfOrders();
+        //then
+        assertEquals(5, result);
+    }
 
     @Test
     public void shouldReturnWholeSumOfOrders(){
