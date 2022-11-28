@@ -77,4 +77,13 @@ class WeatherAlertTestSuite {
         Mockito.verify(userOne, Mockito.never()).receive(notification);
 
     }
+
+    @Test
+    public void shouldAddElementToMap(){
+        weatherAlert.addWeatherUser(userOne, locationThree);
+
+        weatherAlert.sendToAllUsersNotification(notification);
+
+        Mockito.verify(userOne, Mockito.times(1)).receive(notification);
+    }
 }
