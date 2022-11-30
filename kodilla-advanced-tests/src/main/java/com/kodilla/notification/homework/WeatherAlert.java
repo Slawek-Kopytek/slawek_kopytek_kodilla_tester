@@ -6,13 +6,18 @@ public class WeatherAlert {
 
     private Map<Location, Set<User>> usersAlert = new HashMap<>();
 
-    public void alertForLocation(Location location, Notification notification){
-        usersAlert.getOrDefault(location, new HashSet<>())
-                .forEach(user -> user.receive(notification));
+    public void addWeatherUser(User user, Location location) {
+        if (usersAlert.containsKey(location)){
+            usersAlert.get(location).add(user);
+        } else {
+            Set<User> newUser = new HashSet<>();
+            newUser.add(user);
+            usersAlert.put(location, newUser);
+        }
     }
 
-    public void removeLocation(Location location){
-        usersAlert.remove(location);
+    public void removeSubscriptionFromLocation(User user, Location location){
+        usersAlert.get(location).remove(user);
     }
 
     public void removeSubscription(User user){
@@ -21,29 +26,17 @@ public class WeatherAlert {
         }
     }
 
-    public void sendNotificationByLocation(User user, Location location){
-        if (!usersAlert.containsKey(location)){
-            usersAlert.put(location, new HashSet<>());
-        }
-        usersAlert.get(location).add(user);
+    public void sendNotificationToAllUsersByLocation(Location location){
+        if (usersAlert.containsKey(location))
+            usersAlert.get(location).forEach(User::receiveAlertLocation);
     }
 
-    public void sendToAllUsersNotification(Notification notification){
-        for (Map.Entry<Location, Set<User>> entry : usersAlert.entrySet()){
-            entry.getValue().forEach(user -> user.receive(notification));
-        }
+    public void sendNotificationToAllUsers(){
+        for (Set<User> users : usersAlert.values())
+            users.forEach(User::receiveServiceNotification);
     }
 
-    public void removeSubscriptionFromLocation(User user, Location location){
-        if(!usersAlert.containsKey(location)){
-            usersAlert.put(location, new HashSet<>());
-        }
-        usersAlert.get(location).remove(user);
-    }
-
-    public void addWeatherUser(User user, Location location){
-        Set<User> users = usersAlert.getOrDefault(location, new HashSet<>());
-        users.add(user);
-        usersAlert.put(location, users);
+    public void removeLocation(Location location){
+        usersAlert.remove(location);
     }
 }

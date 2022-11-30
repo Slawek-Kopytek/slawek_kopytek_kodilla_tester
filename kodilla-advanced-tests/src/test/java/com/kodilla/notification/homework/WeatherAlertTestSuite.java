@@ -20,70 +20,63 @@ class WeatherAlertTestSuite {
 
     @Test
     public void shouldSendNotificationToUsers() {
-        weatherAlert.sendNotificationByLocation(userOne, locationOne);
-        weatherAlert.sendNotificationByLocation(userThree, locationThree);
-        weatherAlert.sendToAllUsersNotification(notification);
+        weatherAlert.addWeatherUser(userOne, locationOne);
+        weatherAlert.addWeatherUser(userTwo, locationTwo);
+        weatherAlert.sendNotificationToAllUsers();
 
-        Mockito.verify(userOne).receive(notification);
-        Mockito.verify(userThree).receive(notification);
+        Mockito.verify(userOne, Mockito.times(1)).receiveServiceNotification();
+        Mockito.verify(userTwo, Mockito.times(1)).receiveServiceNotification();
     }
 
     @Test
     public void userShouldRemoveSubLocation(){
-        weatherAlert.sendNotificationByLocation(userOne, locationOne);
-        weatherAlert.removeSubscriptionFromLocation(userOne, locationOne);
-        weatherAlert.sendToAllUsersNotification(notification);
+        weatherAlert.addWeatherUser(userOne, locationOne);
+        weatherAlert.addWeatherUser(userTwo, locationTwo);
+        weatherAlert.removeSubscriptionFromLocation(userTwo, locationTwo);
+        weatherAlert.sendNotificationToAllUsers();
 
-        Mockito.verify(userOne, Mockito.never()).receive(notification);
+        Mockito.verify(userTwo, Mockito.never()).receiveServiceNotification();
     }
 
     @Test
-    public void userCanRemoveSubAllLocation(){
-        weatherAlert.sendNotificationByLocation(userOne, locationOne);
-        weatherAlert.sendNotificationByLocation(userOne, locationTwo);
-        weatherAlert.sendNotificationByLocation(userOne, locationThree);
-        weatherAlert.removeLocation(locationOne);
-        weatherAlert.removeLocation(locationTwo);
-        weatherAlert.removeLocation(locationThree);
-        weatherAlert.sendToAllUsersNotification(notification);
+    public void userCanRemoveAllLocationSub(){
+        weatherAlert.addWeatherUser(userOne, locationOne);
+        weatherAlert.addWeatherUser(userTwo, locationTwo);
+        weatherAlert.addWeatherUser(userTwo, locationTwo);
+        weatherAlert.addWeatherUser(userTwo, locationThree);
+        weatherAlert.addWeatherUser(userThree, locationThree);
+        weatherAlert.addWeatherUser(userThree, locationOne);
+        weatherAlert.removeSubscription(userTwo);
+        weatherAlert.sendNotificationToAllUsers();
 
-        Mockito.verify(userOne, Mockito.never()).receive(notification);
+        Mockito.verify(userOne, Mockito.times(1)).receiveServiceNotification();
+        Mockito.verify(userTwo, Mockito.never()).receiveServiceNotification();
+        Mockito.verify(userThree, Mockito.times(2)).receiveServiceNotification();
     }
 
     @Test
-    public void usersWithLocationShouldReceiveNotification(){
-        weatherAlert.sendNotificationByLocation(userOne, locationOne);
-        weatherAlert.sendNotificationByLocation(userTwo, locationTwo);
-        weatherAlert.sendNotificationByLocation(userThree, locationThree);
-        weatherAlert.alertForLocation(locationOne, notification);
-        weatherAlert.alertForLocation(locationThree, notification);
-
-        Mockito.verify(userOne).receive(notification);
-        Mockito.verify(userThree).receive(notification);
-        Mockito.verify(userTwo, Mockito.never()).receive(notification);
-    }
-
-    @Test
-    public void shouldRemoveUserFromNotification(){
-        weatherAlert.sendNotificationByLocation(userOne, locationOne);
-        weatherAlert.sendNotificationByLocation(userOne, locationTwo);
-        weatherAlert.alertForLocation(locationOne, notification);
-
-        Mockito.verify(userOne, Mockito.times(1)).receive(notification);
-
-        weatherAlert.removeSubscription(userOne);
-        weatherAlert.sendToAllUsersNotification(notification);
-
-        Mockito.verify(userOne, Mockito.never()).receive(notification);
-
-    }
-
-    @Test
-    public void shouldAddElementToMap(){
+    public void usersShouldGetAlertByLocation(){
         weatherAlert.addWeatherUser(userOne, locationThree);
+        weatherAlert.addWeatherUser(userTwo, locationTwo);
+        weatherAlert.addWeatherUser(userTwo, locationThree);
+        weatherAlert.addWeatherUser(userThree, locationOne);
+        weatherAlert.sendNotificationToAllUsersByLocation(locationThree);
+        weatherAlert.sendNotificationToAllUsersByLocation(locationTwo);
 
-        weatherAlert.sendToAllUsersNotification(notification);
+        Mockito.verify(userOne, Mockito.times(1)).receiveAlertLocation();
+        Mockito.verify(userTwo, Mockito.times(2)).receiveAlertLocation();
+        Mockito.verify(userThree, Mockito.never()).receiveAlertLocation();
+    }
 
-        Mockito.verify(userOne, Mockito.times(1)).receive(notification);
+
+    @Test
+    public void shouldRemoveLocationFromUsers(){
+        weatherAlert.addWeatherUser(userOne, locationOne);
+        weatherAlert.addWeatherUser(userTwo, locationTwo);
+        weatherAlert.removeLocation(locationTwo);
+        weatherAlert.sendNotificationToAllUsers();
+
+        Mockito.verify(userOne, Mockito.times(1)).receiveServiceNotification();
+        Mockito.verify(userTwo, Mockito.never()).receiveServiceNotification();
     }
 }

@@ -2,5 +2,6 @@ package com.kodilla.notification.homework;
 
 public interface User {
 
-    void receive(Notification notification);
+    void receiveServiceNotification();
+    void receiveAlertLocation();
 }
