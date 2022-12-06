@@ -1,13 +1,21 @@
 package com.kodilla.spring.basic.spring_dependency_injection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SimpleApplication {
 
+    @Autowired //pole
     private SkypeMessageService messageService;
 
+    //constructor
     public SimpleApplication(SkypeMessageService messageService) {
+        this.messageService = messageService;
+    }
+
+    @Autowired //setter
+    public void setMessageService(SkypeMessageService messageService) {
         this.messageService = messageService;
     }
 
