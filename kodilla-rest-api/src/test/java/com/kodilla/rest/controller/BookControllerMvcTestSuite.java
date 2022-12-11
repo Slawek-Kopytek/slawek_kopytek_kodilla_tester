@@ -33,14 +33,32 @@ public class BookControllerMvcTestSuite {
     void shouldFetchBooks() throws Exception {
         //given
         List<BookDto> booksList = new ArrayList<>();
-        booksList.add(new BookDto("title 1", "author 2"));
+        booksList.add(new BookDto("title 1", "author 1"));
         booksList.add(new BookDto("title 2", "author 2"));
         Mockito.when(bookService.getBooks()).thenReturn(booksList);
 
         //when & then
-        mockMvc.perform(MockMvcRequestBuilders.get("/books")                // [1]
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().is(200))               // [2]
+        mockMvc.perform(MockMvcRequestBuilders.get("/books").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
     }
+
+    /*@Test
+    public void shouldAddBookAfterPost() throws Exception{
+        //given
+        BookService bookServiceMock = Mockito.mock(BookService.class);
+        BookController bookController = new BookController(bookServiceMock);
+        List<BookDto> booksList = new ArrayList<>();
+        booksList.add(new BookDto("title 1", "author 1"));
+        booksList.add(new BookDto("title 2", "author 2"));
+        BookDto book = new BookDto("title 3","author 3");
+        Mockito.when(bookServiceMock.addBook(book)).thenReturn(booksList);
+
+        //when & then
+        mockMvc.perform(MockMvcRequestBuilders.post("/books")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(MockMvcResultMatchers.status().is(200))               // [2]
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
+    }*/
 }

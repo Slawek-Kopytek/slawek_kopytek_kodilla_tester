@@ -4,6 +4,7 @@ import com.kodilla.rest.domain.BookDto;
 import com.kodilla.rest.service.BookService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,5 +30,18 @@ class BookControllerTestSuite {
 
         //then
         assertThat(result).hasSize(2);
+    }
+
+    @Test
+    void shouldAddBooksAfterPost(){
+        //given
+        BookService bookServiceMock = Mockito.mock(BookService.class);
+        BookController bookController = new BookController(bookServiceMock);
+
+        //when
+        bookController.addBook(new BookDto("Title 3", "Author 3"));
+
+        //then
+        Mockito.verify(bookServiceMock, Mockito.times(1)).addBook(new BookDto("Title 3", "Author 3"));
     }
 }
