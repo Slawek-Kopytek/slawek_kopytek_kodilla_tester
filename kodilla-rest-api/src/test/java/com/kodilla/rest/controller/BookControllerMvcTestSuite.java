@@ -1,6 +1,7 @@
 package com.kodilla.rest.controller;
 
 
+import com.google.gson.Gson;
 import com.kodilla.rest.domain.BookDto;
 import com.kodilla.rest.service.BookService;
 import org.hamcrest.Matchers;
@@ -43,22 +44,19 @@ public class BookControllerMvcTestSuite {
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
     }
 
-    /*@Test
-    public void shouldAddBookAfterPost() throws Exception{
+    @Test
+     void shouldAddBookAfterPost() throws Exception{
+
         //given
-        BookService bookServiceMock = Mockito.mock(BookService.class);
-        BookController bookController = new BookController(bookServiceMock);
-        List<BookDto> booksList = new ArrayList<>();
-        booksList.add(new BookDto("title 1", "author 1"));
-        booksList.add(new BookDto("title 2", "author 2"));
         BookDto book = new BookDto("title 3","author 3");
-        Mockito.when(bookServiceMock.addBook(book)).thenReturn(booksList);
+        Gson gson = new Gson();
+        String json = gson.toJson(book);
 
         //when & then
         mockMvc.perform(MockMvcRequestBuilders.post("/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
-                .andExpect(MockMvcResultMatchers.status().is(200))               // [2]
-                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
-    }*/
+                .andExpect(MockMvcResultMatchers.status().is(200));
+        Mockito.verify(bookService, Mockito.times(1)).addBook(book);
+    }
 }
