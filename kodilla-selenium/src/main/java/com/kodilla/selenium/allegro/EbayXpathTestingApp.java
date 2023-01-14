@@ -28,7 +28,7 @@ public class EbayXpathTestingApp {
         acceptField.submit();
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("mainContent")));
-        List<WebElement> element = driver.findElements(By.cssSelector("ul >li"));
+        List<WebElement> element = driver.findElements(By.cssSelector("ul.srp-results > li[data-view*='mi:1686']"));
         element.stream()
                 .forEach(ele -> System.out.println(ele.getText()));
     }
