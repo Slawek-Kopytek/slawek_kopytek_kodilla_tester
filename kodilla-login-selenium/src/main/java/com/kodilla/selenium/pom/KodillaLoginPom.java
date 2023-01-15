@@ -10,18 +10,33 @@ import org.openqa.selenium.support.PageFactory;
 public class KodillaLoginPom {
 
     @FindBy(css = "input[type='email']")
-    static WebElement emailField;
+    WebElement emailField;
 
-    @FindBy(css = "input[type=’password’]")
-    static WebElement passwordField;
+    @FindBy(css = "input[type='password']")
+    WebElement passwordField;
 
-    public static void main(String[] args) {
+    @FindBy(xpath = "//button[contains(text(), 'Log in')]")
+    WebElement loginButton;
+
+    WebDriver driver;
+
+    public KodillaLoginPom() {
         System.setProperty("webdriver.chrome.driver", "c:/selenium-drivers/chrome/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
+        PageFactory.initElements(driver, this);
+
         driver.navigate().to("https://kodilla.com/pl/test/login");
-        PageFactory.initElements(driver, KodillaLoginPom.class);
-        emailField.sendKeys("testuser@gmail.com");
-        passwordField.sendKeys("Haslo");
+    }
+
+    public boolean login(String email, String password){
+        emailField.sendKeys(email);
+        passwordField.sendKeys(password);
+        loginButton.click();
+        String message = driver.switchTo().alert().getText();
+        return message.equals("Jesteś teraz zalogowany!");
+    }
+
+    public void close(){
         driver.close();
     }
 }
