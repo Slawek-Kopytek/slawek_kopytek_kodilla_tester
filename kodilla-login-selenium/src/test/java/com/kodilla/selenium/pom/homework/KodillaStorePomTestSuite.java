@@ -1,7 +1,6 @@
 package com.kodilla.selenium.pom.homework;
 
-import com.google.common.base.Strings;
-import com.kodilla.selenium.pom.KodillaLoginPom;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -34,6 +34,7 @@ class KodillaLoginPomTestSuite {
         String email = "test@kodilla.com";
         String password = "kodilla123";
         boolean loggedIn = loginPom.login(email, password);
+        System.out.println(loggedIn);
         assertTrue(loggedIn);
     }
 

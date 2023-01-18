@@ -33,6 +33,7 @@ public class KodillaLoginPom extends AbstractPom {
         Alert alert = driver.switchTo().alert();
         String message = alert.getText();
         alert.dismiss();
-        return message.equals("Jesteś teraz zalogowany!");
+        boolean result = message.contains("Jesteś teraz zalogowany!");
+        return result;
     }
 }
