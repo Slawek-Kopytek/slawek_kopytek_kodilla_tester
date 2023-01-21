@@ -20,8 +20,24 @@ public class WalletSteps implements En {
             cashier.withdraw(wallet, 30);
         });
 
+        When("I request $0", () -> {
+            cashier.withdraw(wallet, 0);
+        });
+
+        When("I request $201", () -> {
+            cashier.withdraw(wallet, 201);
+        });
+
         Then("$30 should be dispensed", () -> {
             Assert.assertEquals(30, cashSlot.getContents());
+        });
+
+        Then("$0 should be dispensed", () -> {
+            Assert.assertEquals(0, cashSlot.getContents());
+        });
+
+        Then("$201 should be dispensed", () -> {
+            Assert.assertEquals(201, cashSlot.getContents());
         });
     }
 }
