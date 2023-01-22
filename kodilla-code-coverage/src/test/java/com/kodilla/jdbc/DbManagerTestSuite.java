@@ -48,6 +48,31 @@ class DbManagerTestSuite {
         statement.close();
     }
 
+    @Test
+    void testSelectUsersAndPosts() throws SQLException{
+        //Given
+        String countQuery = "SELECT\tU.FIRSTNAME, U.LASTNAME, COUNT(*) AS POSTS_NUMBER\n" +
+                "   FROM USERS U\n" +
+                "   JOIN POSTS P ON U.ID = P.USER_ID\n" +
+                "  GROUP BY P.USER_ID\n" +
+                " HAVING COUNT(*) >=2;";
+        Statement statement = createStatement();
+        ResultSet rs = statement.executeQuery(countQuery);
+        int count = 0;
+
+        //When
+        while (rs.next()){
+            System.out.println(rs.getString("FIRSTNAME") + "," + rs.getString("LASTNAME"));
+            count++;
+        }
+
+        //Then
+        Assertions.assertEquals(3, count);
+
+        rs.close();
+        statement.close();
+    }
+
     private Statement createStatement() throws SQLException {
         return dbManager.getConnection().createStatement();
     }
@@ -83,16 +108,13 @@ class DbManagerTestSuite {
         return counter;
     }
 
+
+
     private static int getRowsCount(ResultSet rs) throws SQLException {
         int count = 0;
         while (rs.next()) {
             count = rs.getInt("COUNT(*)");
         }
         return count;
-    }
-
-    @Test
-    void testSelectUsersAndPosts(){
-
     }
 }
