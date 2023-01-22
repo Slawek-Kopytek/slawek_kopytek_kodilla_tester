@@ -7,7 +7,9 @@ public class CashSlot {
         return contents;
     }
 
-    public void dispense(int amount){
-        this.contents = amount;
+    public void dispense(Wallet wallet, int amount){
+        if(wallet.getBalance() > amount) {
+            this.contents = amount;
+        }
     }
 }
