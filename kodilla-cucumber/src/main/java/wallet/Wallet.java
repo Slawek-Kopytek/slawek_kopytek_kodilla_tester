@@ -10,11 +10,10 @@ public class Wallet {
             this.balance += money;
     }
 
-
     public int getBalance() {
         return balance;
     }
-    public String display(){
+    public String displayBalance(){
         return "User balance: $" + getBalance();
     }
 
@@ -28,6 +27,5 @@ public class Wallet {
         String result = "You don't have enough money";
         System.out.println(result);
         return result;
-
     }
 }

@@ -34,17 +34,17 @@ public class DisplayBalanceSteps implements En {
         });
 
         Then("I should see that the balance is $0", () -> {
-            String display = wallet.display();
+            String display = wallet.displayBalance();
             Assert.assertEquals("User balance: $0", display);
         });
 
         Then("I should see that the balance is $100", () -> {
-            String display = wallet.display();
+            String display = wallet.displayBalance();
             Assert.assertEquals("User balance: $100", display);
         });
 
         Then("I should see that the balance is $99999", () -> {
-            String display = wallet.display();
+            String display = wallet.displayBalance();
             Assert.assertEquals("User balance: $99999", display);
         });
     }
