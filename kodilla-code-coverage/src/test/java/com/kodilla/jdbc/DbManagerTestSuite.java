@@ -58,16 +58,36 @@ class DbManagerTestSuite {
                 " HAVING COUNT(*) >=2;";
         Statement statement = createStatement();
         ResultSet rs = statement.executeQuery(countQuery);
-        int count = 0;
+        int count = getUsersAndPostsResultsCount(rs);
+        insertUsers(statement);
+
+
+       /*String sqlQuery1 = "SELECT U.ID FROM USERS U \n" +
+               " WHERE U.ID NOT IN (SELECT USER_ID FROM POSTS)\n" +
+               " LIMIT 2;";
+        statement = createStatement();
+        rs = statement.executeQuery(sqlQuery1);
+
+        while (rs.next()){
+            String id = rs.getString("ID");
+            String toinsert = String.format("INSERT INTO POSTS (USER_ID, BODY) VALUES ('%s', \"TEST\")", id);
+            statement.executeUpdate(toinsert);
+            statement.executeUpdate(toinsert);
+        }*/
 
         //When
-        while (rs.next()){
-            System.out.println(rs.getString("FIRSTNAME") + "," + rs.getString("LASTNAME"));
-            count++;
-        }
+        String sqlQuery3 = "SELECT\tU.FIRSTNAME, U.LASTNAME, COUNT(*) AS POSTS_NUMBER\n" +
+                "   FROM USERS U\n" +
+                "   JOIN POSTS P ON U.ID = P.USER_ID\n" +
+                "  GROUP BY P.USER_ID\n" +
+                " HAVING COUNT(*) >=2;";
+        statement = createStatement();
+        rs = statement.executeQuery(sqlQuery3);
 
         //Then
-        Assertions.assertEquals(3, count);
+        int counter = getUsersAndPostsResultsCount(rs);
+        int expected = count;
+        Assertions.assertEquals(expected, counter);
 
         rs.close();
         statement.close();
@@ -103,6 +123,18 @@ class DbManagerTestSuite {
                     rs.getInt("ID"),
                     rs.getString("FIRSTNAME"),
                     rs.getString("LASTNAME"));
+            counter++;
+        }
+        return counter;
+    }
+
+    private static int getUsersAndPostsResultsCount(ResultSet rs) throws SQLException {
+        int counter = 0;
+        while(rs.next()) {
+            System.out.printf("%s, %s, %d%n",
+                    rs.getString("FIRSTNAME"),
+                    rs.getString("LASTNAME"),
+                    rs.getInt("POSTS_NUMBER"));
             counter++;
         }
         return counter;
