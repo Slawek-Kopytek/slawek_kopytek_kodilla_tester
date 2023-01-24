@@ -62,18 +62,18 @@ class DbManagerTestSuite {
         insertUsers(statement);
 
 
-       /*String sqlQuery1 = "SELECT U.ID FROM USERS U \n" +
+       String sqlQuery1 = "SELECT U.ID FROM USERS U \n" +
                " WHERE U.ID NOT IN (SELECT USER_ID FROM POSTS)\n" +
                " LIMIT 2;";
         statement = createStatement();
         rs = statement.executeQuery(sqlQuery1);
 
-        while (rs.next()){
+        while (rs.next()) {
             String id = rs.getString("ID");
             String toinsert = String.format("INSERT INTO POSTS (USER_ID, BODY) VALUES ('%s', \"TEST\")", id);
             statement.executeUpdate(toinsert);
             statement.executeUpdate(toinsert);
-        }*/
+        }
 
         //When
         String sqlQuery3 = "SELECT\tU.FIRSTNAME, U.LASTNAME, COUNT(*) AS POSTS_NUMBER\n" +
