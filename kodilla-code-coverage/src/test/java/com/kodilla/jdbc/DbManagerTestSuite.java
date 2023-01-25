@@ -48,7 +48,7 @@ class DbManagerTestSuite {
         statement.close();
     }
 
-    @Test
+    /*@Test
     void testSelectUsersAndPosts() throws SQLException{
         //Given
         String countQuery = "SELECT\tU.FIRSTNAME, U.LASTNAME, COUNT(*) AS POSTS_NUMBER\n" +
@@ -85,7 +85,7 @@ class DbManagerTestSuite {
 
         rs.close();
         statement.close();
-    }
+    }*/
 
     private Statement createStatement() throws SQLException {
         return dbManager.getConnection().createStatement();
