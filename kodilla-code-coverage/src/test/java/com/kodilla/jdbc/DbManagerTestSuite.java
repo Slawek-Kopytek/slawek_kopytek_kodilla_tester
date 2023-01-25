@@ -61,28 +61,22 @@ class DbManagerTestSuite {
         int count = getUsersAndPostsResultsCount(rs);
         insertUsers(statement);
 
-
-       String sqlQuery1 = "SELECT U.ID FROM USERS U \n" +
+        String sqlQuery = "SELECT U.ID FROM USERS U \n" +
                " WHERE U.ID NOT IN (SELECT USER_ID FROM POSTS)\n" +
                " LIMIT 2;";
         statement = createStatement();
-        rs = statement.executeQuery(sqlQuery1);
+        ResultSet resultSet = statement.executeQuery(sqlQuery);
 
-        while (rs.next()) {
-            String id = rs.getString("ID");
-            String toinsert = String.format("INSERT INTO POSTS (USER_ID, BODY) VALUES ('%s', \"TEST\")", id);
-            statement.executeUpdate(toinsert);
-            statement.executeUpdate(toinsert);
+        while (resultSet.next()) {
+            String id = resultSet.getString("ID");
+            String toInsert = String.format("INSERT INTO POSTS (USER_ID, BODY) VALUES ('%s', \"TEST\")", id);
+            statement.executeUpdate(toInsert);
+            statement.executeUpdate(toInsert);
         }
 
         //When
-        String sqlQuery3 = "SELECT\tU.FIRSTNAME, U.LASTNAME, COUNT(*) AS POSTS_NUMBER\n" +
-                "   FROM USERS U\n" +
-                "   JOIN POSTS P ON U.ID = P.USER_ID\n" +
-                "  GROUP BY P.USER_ID\n" +
-                " HAVING COUNT(*) >=2;";
         statement = createStatement();
-        rs = statement.executeQuery(sqlQuery3);
+        rs = statement.executeQuery(countQuery);
 
         //Then
         int counter = getUsersAndPostsResultsCount(rs);
