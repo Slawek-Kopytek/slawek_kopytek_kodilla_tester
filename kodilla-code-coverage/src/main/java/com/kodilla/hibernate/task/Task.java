@@ -14,7 +14,6 @@ public class Task {
     private LocalDate created;
     private int duration;
     private TaskFinancialDetails taskFinancialDetails;
-
     private TaskList taskList;
 
     public Task() {
@@ -75,6 +74,7 @@ public class Task {
     public void setTaskFinancialDetails(TaskFinancialDetails taskFinancialDetails) {
         this.taskFinancialDetails = taskFinancialDetails;
     }
+
     @ManyToOne
     @JoinColumn(name = "TASKLIST_ID")
     public TaskList getTaskList() {
