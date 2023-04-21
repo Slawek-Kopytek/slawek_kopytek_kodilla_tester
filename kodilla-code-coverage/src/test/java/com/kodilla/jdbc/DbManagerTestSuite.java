@@ -67,6 +67,7 @@ class DbManagerTestSuite {
         statement = createStatement();
         ResultSet resultSet = statement.executeQuery(sqlQuery);
 
+// Tutaj jest wadliwy kod (linia 71)
         while (resultSet.next()) {
             String id = resultSet.getString("ID");
             String toInsert = String.format("INSERT INTO POSTS (USER_ID, BODY) VALUES ('%s', \"TEST\")", id);
